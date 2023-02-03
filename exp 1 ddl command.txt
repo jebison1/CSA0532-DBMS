@@ -1,0 +1,58 @@
+mysql> create database sse24;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use sse24;
+Database changed
+mysql> create table faculty(facid int(20),facname varchar(20),facdept varchar(10),salary int(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc faculty;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| facid   | int(20)     | YES  |     | NULL    |       |
+| facname | varchar(20) | YES  |     | NULL    |       |
+| facdept | varchar(10) | YES  |     | NULL    |       |
+| salary  | int(20)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_sse24 |
++-----------------+
+| faculty         |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> desc student;
+ERROR 1146 (42S02): Table 'sse24.student' doesn't exist
+mysql> create studepartment(deptid int(20),deptname varchar(20),rollno int(5));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'studepartment(deptid int(20),deptname varchar(20),rollno int(5))' at line 1
+mysql> alter table faculty add(experience varchar(10));
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc faculty:
+    -> desc faculty;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':
+desc faculty' at line 1
+mysql> desc faculty;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| facid      | int(20)     | YES  |     | NULL    |       |
+| facname    | varchar(20) | YES  |     | NULL    |       |
+| facdept    | varchar(10) | YES  |     | NULL    |       |
+| salary     | int(20)     | YES  |     | NULL    |       |
+| experience | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> drop table faculty;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc faculty;
+ERROR 1146 (42S02): Table 'sse24.faculty' doesn't exist
+mysql> show tables;
+Empty set (0.00 sec)

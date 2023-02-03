@@ -1,0 +1,39 @@
+
+mysql> use sse24;
+Database changed
+mysql> create table mentees(regno int(10),name varchar(20),dept varchar(4),address varchar(10),fathername varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into mentees values(192211062,"jebison","cse","rameshwaram","santhosh");
+ERROR 1406 (22001): Data too long for column 'address' at row 1
+mysql> insert into mentees values(1922,"jebi","cse","goa","ram");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into mentees values(1921,"arun","it","nellore","muthu");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into mentees values(1923,"harini","ece","tanjore","velu");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from mentees;
++-------+--------+------+---------+------------+
+| regno | name   | dept | address | fathername |
++-------+--------+------+---------+------------+
+|  1922 | jebi   | cse  | goa     | ram        |
+|  1921 | arun   | it   | nellore | muthu      |
+|  1923 | harini | ece  | tanjore | velu       |
++-------+--------+------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select name from mentees;
++--------+
+| name   |
++--------+
+| jebi   |
+| arun   |
+| harini |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees where name="gowtham";
+Empty set (0.00 sec)

@@ -1,0 +1,87 @@
+
+mysql> use sse24;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_sse24 |
++-----------------+
+| mentees         |
+| student         |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees;
++-------+------+------+---------+------------+
+| regno | name | dept | address | fathername |
++-------+------+------+---------+------------+
+|  1922 | jebi | bme  | goa     | ram        |
+|  1921 | arun | it   | nellore | muthu      |
++-------+------+------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees where dept='it';
++-------+------+------+---------+------------+
+| regno | name | dept | address | fathername |
++-------+------+------+---------+------------+
+|  1921 | arun | it   | nellore | muthu      |
++-------+------+------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> select*from mentees where name="gowtham";
+Empty set (0.00 sec)
+
+mysql> aselect*from mentees where name="jebi";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'aselect*from mentees where name="jebi"' at line 1
+mysql> select*from mentees where name="jebi";
++-------+------+------+---------+------------+
+| regno | name | dept | address | fathername |
++-------+------+------+---------+------------+
+|  1922 | jebi | bme  | goa     | ram        |
++-------+------+------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> alter table mentees add marks int(4);
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> update mentees set mark=99 where dept="bme";
+ERROR 1054 (42S22): Unknown column 'mark' in 'field list'
+mysql>
+mysql> update mentees set marks=99 where dept="it";
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update mentees set marks=91 where dept="bme";
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update mentees set marks=95 where name="harish";
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select*from mentees;
++-------+------+------+---------+------------+-------+
+| regno | name | dept | address | fathername | marks |
++-------+------+------+---------+------------+-------+
+|  1922 | jebi | bme  | goa     | ram        |    91 |
+|  1921 | arun | it   | nellore | muthu      |    99 |
++-------+------+------+---------+------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> seleect*from mentees where name like 'j%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seleect*from mentees where name like 'j%'' at line 1
+mysql> select*from mentees where name like 'a%';
++-------+------+------+---------+------------+-------+
+| regno | name | dept | address | fathername | marks |
++-------+------+------+---------+------------+-------+
+|  1921 | arun | it   | nellore | muthu      |    99 |
++-------+------+------+---------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> select*from mentees where dept like 'i%';
++-------+------+------+---------+------------+-------+
+| regno | name | dept | address | fathername | marks |
++-------+------+------+---------+------------+-------+
+|  1921 | arun | it   | nellore | muthu      |    99 |
++-------+------+------+---------+------------+-------+
+1 row in set (0.00 sec)
