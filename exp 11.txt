@@ -1,0 +1,62 @@
+mysql> use sse;
+ERROR 1049 (42000): Unknown database 'sse'
+mysql> use sse24;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_sse24 |
++-----------------+
+| marks_view      |
+| mdept           |
+| mentees         |
+| mentees1        |
+| per             |
+| student         |
++-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select*from mentees;
++-------+------+------+---------+------------+-------+---------+
+| regno | name | dept | address | fathername | marks | subject |
++-------+------+------+---------+------------+-------+---------+
+|  1922 | jebi | bme  | goa     | ram        |    91 | NULL    |
+|  1921 | arun | it   | nellore | muthu      |    99 | NULL    |
++-------+------+------+---------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select name,marks,case when marks>95 then 'excellent' when marks>90 then 'god' else 'average' end as performance from mentees;
++------+-------+-------------+
+| name | marks | performance |
++------+-------+-------------+
+| jebi |    91 | god         |
+| arun |    99 | excellent   |
++------+-------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select name,marks,if(marks>=95,"excellent marks","good marks") from mentees;
++------+-------+----------------------------------------------+
+| name | marks | if(marks>=95,"excellent marks","good marks") |
++------+-------+----------------------------------------------+
+| jebi |    91 | good marks                                   |
+| arun |    99 | excellent marks                              |
++------+-------+----------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> delimiter $$
+mysql> create function repeat_demo(inc int)
+    -> returns char(40)
+    -> deterministic
+    -> begin
+    -> declare income int;
+    -> set income=0;
+    -> repeat
+    -> set income=income=inc;
+    -> until income>4000
+    ->
+    -> end repeat;
+    -> return"income>4000 detected";
+    -> end;
+    -> $$
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select repeat_demo(3000);$$

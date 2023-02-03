@@ -1,0 +1,105 @@
+
+mysql> use sse24;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_sse24 |
++-----------------+
+| mentees         |
+| mentees1        |
+| student         |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees;
++-------+------+------+---------+------------+-------+---------+
+| regno | name | dept | address | fathername | marks | subject |
++-------+------+------+---------+------------+-------+---------+
+|  1922 | jebi | bme  | goa     | ram        |    91 | NULL    |
+|  1921 | arun | it   | nellore | muthu      |    99 | NULL    |
++-------+------+------+---------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> create table mdept(deptid int(5),deptname varchar(20),rollno int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into mdept values(1,"cse",1922);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into values(2,"ece",1921);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values(2,"ece",1921)' at line 1
+mysql> insert into mdept values(2,"ece",1921);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update mdept set depid=3 where rollno=1922;
+ERROR 1054 (42S22): Unknown column 'depid' in 'field list'
+mysql> update mdept set deptid=3 where rollno=1922;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from mdept;
++--------+----------+--------+
+| deptid | deptname | rollno |
++--------+----------+--------+
+|      3 | cse      |   1922 |
+|      2 | ece      |   1921 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> update mdept set deptname="bme" where rollno=1921;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from mdept;
++--------+----------+--------+
+| deptid | deptname | rollno |
++--------+----------+--------+
+|      3 | cse      |   1922 |
+|      2 | bme      |   1921 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select deptid,deptname from mdept,mentees where mentees.regno=mdept.rollno;
++--------+----------+
+| deptid | deptname |
++--------+----------+
+|      3 | cse      |
+|      2 | bme      |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select name,deptid,deptname,rollno from mdept m,mentees m1 where m1.regno=m.rollno;
++------+--------+----------+--------+
+| name | deptid | deptname | rollno |
++------+--------+----------+--------+
+| jebi |      3 | cse      |   1922 |
+| arun |      2 | bme      |   1921 |
++------+--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select name,dept,deptid,deptname,rollno from mdept,mentees where mentees.regno=mdept.rollno;
++------+------+--------+----------+--------+
+| name | dept | deptid | deptname | rollno |
++------+------+--------+----------+--------+
+| jebi | bme  |      3 | cse      |   1922 |
+| arun | it   |      2 | bme      |   1921 |
++------+------+--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select rollno,deptname,name,address from mdept left outer join mentees on mdept.rollno=mentees.regno;
++--------+----------+------+---------+
+| rollno | deptname | name | address |
++--------+----------+------+---------+
+|   1922 | cse      | jebi | goa     |
+|   1921 | bme      | arun | nellore |
++--------+----------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select rollno,deptname,name,address from mdept right outer join mentees on mdept.rollno=mentees.regno;
++--------+----------+------+---------+
+| rollno | deptname | name | address |
++--------+----------+------+---------+
+|   1922 | cse      | jebi | goa     |
+|   1921 | bme      | arun | nellore |
++--------+----------+------+---------+
+2 rows in set (0.00 sec)
